@@ -13,10 +13,10 @@ define("METHOD_PREFIX","action_");
 
 include_once "Router.php";
 
-include_once CORE_DIR . "models/BaseModel.php";
 include_once CORE_DIR . "models/Database.php";
-include_once CORE_DIR . "views/BaseView.php";
+include_once CORE_DIR . "models/BaseModel.php";
 include_once CORE_DIR . "controllers/BaseController.php";
+include_once CORE_DIR . "views/BaseView.php";
 
 Router::addRoute(
     "/products/:id/:name/:foo", array(

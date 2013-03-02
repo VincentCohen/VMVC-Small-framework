@@ -2,7 +2,7 @@
 /**
 *	Router Class
 */
-Class Router{
+class Router{
 
     /**
     * Array that holds all routes
