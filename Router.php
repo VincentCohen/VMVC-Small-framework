@@ -45,8 +45,6 @@ class Router{
             //  router fallback
         }
     	//	Load controllers 
-
-        var_dump($arrMap);
     }
 
     /**
@@ -69,10 +67,6 @@ class Router{
 
     		//	match generated regex on current request
     		$boolHasMatch = preg_match("@^".$strCurrentRegex."*$@i", $strCurrentRequest, $arrMatches);
-    		
-            var_dump($boolHasMatch);
-            var_dump($strRoute);
-            var_dump($strCurrentRequest);
 
     		if(!$boolHasMatch){
     			continue;
@@ -104,6 +98,29 @@ class Router{
     	return $arrReturnMap;
     }
 
+    /**
+    * Executes the route
+    * @param string $URI 
+    */
+    public static function execute($arrMap){
+        $strControllerPath = CONTROLLER_DIR . $arrMap["controller"] . CONTROLLER_SUFFIX . ".php";
+        $strControllerPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . $strControllerPath;
+        $strController = $arrMap["controller"] . CONTROLLER_SUFFIX;
+        $strAction  = METHOD_PREFIX . $arrMap["action"];
+        $arrParams = $arrMap["params"];
+
+        if(file_exists($strControllerPath)){
+            include_once($strControllerPath);
+
+            $objController = new $strController;
+
+            call_user_func_array(array($objController, $strAction), $arrParams);
+
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     /**
     * Router setBaseUrl method
@@ -112,9 +129,9 @@ class Router{
     * @param string url
     */
     public static function setBaseUrl($strUrl){
-    	self::$strBaseUrl = (string) $strUrl;
+        self::$strBaseUrl = (string) $strUrl;
 
-    	return true;
+        return true;
     }
 
     /**
@@ -125,23 +142,6 @@ class Router{
         self::$strRequestUri = (string) $strUri;
 
         return true;
-    }
-
-    /**
-    * Executes the route
-    * @param string $URI 
-    */
-    public static function execute($arrMap){
-        $strControllerPath = CONTROLLER_DIR . $arrMap["controller"] . CONTROLLER_SUFFIX . ".php";
-        $strController = $arrMap["controller"] . CONTROLLER_SUFFIX;
-        $strAction  = METHOD_PREFIX . $arrMap["action"];
-
-        if(file_exists($strControllerPath)){
-            include_once($strControllerPath);
-
-            $objController = new $strController;
-            $objController->$strAction();
-        }
     }
 
     /**

@@ -1,14 +1,12 @@
 <?php
 
-class ProductsController extends ControllerBase{
+class ProductsController extends BaseController{
 	
 	function __construct(){
-		echo "products controller loaded";
+	
 	}
 
 	function action_viewProduct(){
-
-		echo "viewProduct";
 		$data["bar"] = "asdasdas";
 
 		$this->render("foo", $data);

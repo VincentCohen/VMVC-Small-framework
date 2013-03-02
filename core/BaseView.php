@@ -6,14 +6,16 @@ class BaseView{
 	}
 
 	public function render($strView, $arrData){
+		$strFilePath = VIEW_PATH . $strView . VIEW_EXTENSION; //	Path to file
+
 		//	extract data
 		extract($arrData);
 
 		//load view
-		if(file_exists(VIEW_PATH . $strView . VIEW_EXTENSION)){
-
+		if(file_exists($strFilePath)){
+			require_once($strFilePath);
 		}else{
-			var_dump(VIEW_PATH . $strView . VIEW_EXTENSION);
+			die( " VIEW NOT FOUND ");
 		}
 	}
 
