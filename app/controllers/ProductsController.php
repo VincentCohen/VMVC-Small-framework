@@ -9,6 +9,8 @@ class ProductsController extends ControllerBase{
 	function action_viewProduct(){
 
 		echo "viewProduct";
+		$data["bar"] = "asdasdas";
 
+		$this->render("foo", $data);
 	}
 }

@@ -41,12 +41,12 @@ class Router{
 
         if($arrMap){
             self::execute($arrMap);
-
-            echo "Hi";
         }else{
             //  router fallback
         }
     	//	Load controllers 
+
+        var_dump($arrMap);
     }
 
     /**
@@ -70,6 +70,10 @@ class Router{
     		//	match generated regex on current request
     		$boolHasMatch = preg_match("@^".$strCurrentRegex."*$@i", $strCurrentRequest, $arrMatches);
     		
+            var_dump($boolHasMatch);
+            var_dump($strRoute);
+            var_dump($strCurrentRequest);
+
     		if(!$boolHasMatch){
     			continue;
     		}else{
@@ -79,6 +83,7 @@ class Router{
     				// get the matches
     				$arrParams = $arrParams[1];
     				$arrMapParams = array();
+
     				foreach ($arrParams as $strKey => $strName) {
     					//	push param keys and values to array						
                         if (isset($arrMatches[$strKey + 1])){
@@ -88,7 +93,6 @@ class Router{
 
                     $arrMap["params"] = $arrMapParams;
                     $arrReturnMap = $arrMap;
-
     			}
     		}
     	}
