@@ -24,12 +24,15 @@ Router::addRoute(
     "/products/:id/:name/:foo", array(
         "controller" => "Products",
         "action"    => "viewProduct",
+        "route" =>"1",
     )
 );
 
 Router::addRoute(
     "/products/:action/:id/:name/:foo", array(
-        "controller" => "products"
+        "controller" => "products",
+        "action" => "viewProduct",
+        "route"=>"2",
     )
 );
 

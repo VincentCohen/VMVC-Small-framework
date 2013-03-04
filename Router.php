@@ -35,15 +35,22 @@ class Router{
     * Maps the given URL to its target.
     */
     public static function dispatch(){
+        $boolRouted = false; // did we find a route and successfully execute it?
         self::$strCurrentRequest = str_replace(self::$strBaseUrl, "", self::$strRequestUri);
 
         $arrMap = self::map();
 
         if($arrMap){
-            self::execute($arrMap);
+            $boolRouted = self::execute($arrMap);
+            var_dump($boolRouted);
         }else{
             //  router fallback
         }
+
+        if($boolRouted == false){
+            echo "404 BARF";
+        }
+
     	//	Load controllers 
     }
 
@@ -85,6 +92,11 @@ class Router{
                         }
                     }
 
+                    if(isset($arrMapParams["action"])){
+                        $arrMap["action"] = $arrMapParams["action"];
+                        unset($arrMapParams["action"]);
+                    }
+
                     $arrMap["params"] = $arrMapParams;
                     $arrReturnMap = $arrMap;
     			}
@@ -95,6 +107,7 @@ class Router{
     		return false;
     	}
 
+        var_dump($arrReturnMap);
     	return $arrReturnMap;
     }
 
@@ -114,9 +127,13 @@ class Router{
 
             $objController = new $strController;
 
-            call_user_func_array(array($objController, $strAction), $arrParams);
+            if(method_exists($objController, $strAction)){
+                call_user_func_array(array($objController, $strAction), $arrParams);
 
-            return true;
+                return true;
+            }else{
+                return false;
+            }
         }else{
             return false;
         }
