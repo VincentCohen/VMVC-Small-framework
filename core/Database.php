@@ -5,33 +5,33 @@ Class Database{
 	* Boolean representing link status
 	* @var string
 	*/ 
-	var public $link = false;
+	public $link = false;
 
 	/**
 	* Host string
 	* @var string
 	*/ 
-	var private $host = 'localhost';
+	private $host = 'localhost';
 
 	/**
 	* The database username string
 	* @var string
 	*/ 
-	var private $user = 'user';
+	private $user = 'user';
 
 	/**
 	* The password string
 	* @var string
 	*/ 
-	var private $password = 'pass';
+	private $password = 'pass';
 
 	/**
 	* String representing the databasename
 	* @var string
 	*/ 
-	var private $dbname = 'dbname';
+	private $dbname = 'dbname';
 
-		/**
+	/**
 	* Databse class constructor
 	*
 	* Connects to the database
@@ -98,7 +98,6 @@ Class Database{
 		
 		if($this->execute($strQuery)){
 			if($boolId == true){
-				//return last inserted id
 				return $this->link->insert_id;
 			}else{
 				return true;	
