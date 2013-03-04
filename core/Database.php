@@ -1,41 +1,41 @@
 <?php
 Class Database{
-	
+
 	/**
-    * Boolean representing link status
-    * @var string
-    */ 
+	* Boolean representing link status
+	* @var string
+	*/ 
 	var public $link = false;
 
 	/**
-    * Host string
-    * @var string
-    */ 
+	* Host string
+	* @var string
+	*/ 
 	var private $host = 'localhost';
 
 	/**
-    * The database username string
-    * @var string
-    */ 
+	* The database username string
+	* @var string
+	*/ 
 	var private $user = 'user';
 
 	/**
-    * The password string
-    * @var string
-    */ 
+	* The password string
+	* @var string
+	*/ 
 	var private $password = 'pass';
 
 	/**
-    * String representing the databasename
-    * @var string
-    */ 
+	* String representing the databasename
+	* @var string
+	*/ 
 	var private $dbname = 'dbname';
-	
- 	/**
-    * Databse class constructor
-    *
-    * Connects to the database
-    */
+
+		/**
+	* Databse class constructor
+	*
+	* Connects to the database
+	*/
 	public function __construct(){
 		$this->link = @new mysqli($this->host, $this->user, $this->password, $this->dbname);
 
@@ -45,11 +45,11 @@ Class Database{
 	}
 
 	/**
-    * Read query
-    *
-    * Function that reads the query and returns the results
-    * @param string (sql query)
-    */			
+	* Read query
+	*
+	* Function that reads the query and returns the results
+	* @param string (sql query)
+	*/			
 	public function read($strSql){
 		//	Results from the query
 		$arrResult = array();
@@ -74,13 +74,13 @@ Class Database{
 	}
 
 	/**
-    * Insert data to database
-    *
-    * Function that inserts data to the database
-    * @param array list of data to insert, keys equal database field
-    * @param string tablename to insert into
-    * @param string return id or not
-    */
+	* Insert data to database
+	*
+	* Function that inserts data to the database
+	* @param array list of data to insert, keys equal database field
+	* @param string tablename to insert into
+	* @param string return id or not
+	*/
 	public function insert($arrData, $strTable, $boolId = false){
 		$arrValues = array(); // db values
 		$arrFields = array(); // db fields to fill
@@ -106,19 +106,19 @@ Class Database{
 		}else{
 			return false;
 		}
-	
+
 	}
 
 	/**
-    * Insert data to database
-    *
-    * Function that inserts data to the database
-    *
-    * @param array list of data to insert, keys equal database field
-    * @param string tablename to insert into
-    * @param string key column to insert 
-    * @param key column value
-    */
+	* Insert data to database
+	*
+	* Function that inserts data to the database
+	*
+	* @param array list of data to insert, keys equal database field
+	* @param string tablename to insert into
+	* @param string key column to insert 
+	* @param key column value
+	*/
 	public function update($arrData,$strTable,$strKeyColumn, $keyValue){
 		//	array holding the values
 		$arrValues = array();
@@ -139,40 +139,40 @@ Class Database{
 		
 		return $this->execute($strQuery);
 	}
-	
+
 	/**
-    * Delete data from database
-    *
-    * Function that removes data to the database
-    *
-    * @param string tablename to insert into
-    * @param string key column to insert 
-    * @param key column value
-    * @param int limit
-    */
+	* Delete data from database
+	*
+	* Function that removes data to the database
+	*
+	* @param string tablename to insert into
+	* @param string key column to insert 
+	* @param key column value
+	* @param int limit
+	*/
 	public function delete($strTable,$strKeyColumn,$keyValue, $limit = 1){
 		$q = "DELETE FROM `$strTable` WHERE `$strTable`.`$strKeyColumn` = "
 			. $this->link->real_escape_string($keyValue); 
 		
 		return $this->execute($q);
 	}
-	
+
 	/**
-    * Execute a query on the database
-    *
-    * Function that removes data to the database
-    *
-    * @param string query to execute
-    */
+	* Execute a query on the database
+	*
+	* Function that removes data to the database
+	*
+	* @param string query to execute
+	*/
 	public function execute($strSql){	
 		return $this->link->query($strSql);
 	}
-	
+
 	/**
-    * Escape values and return
-    *
-    * @param string value to escape
-    */
+	* Escape values and return
+	*
+	* @param string value to escape
+	*/
 	public function escape($strVal){
 		return $this->link->real_escape_string($strVal);
 	}
