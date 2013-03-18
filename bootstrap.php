@@ -18,7 +18,7 @@ include_once "Router.php";
 include_once CORE_DIR . "Database.php";
 include_once CORE_DIR . "BaseModel.php";
 include_once CORE_DIR . "BaseView.php";
-include_once CORE_DIR . "BaseController.php";
+include_once CONTROLLER_DIR . "AppController.php";
 
 Router::addRoute(
     "/products/:id/:name/:foo", array(
