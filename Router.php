@@ -99,7 +99,10 @@ class Router{
 
                     $arrMap["params"] = $arrMapParams;
                     $arrReturnMap = $arrMap;
-    			}
+    			}else{
+                    $arrMap["params"] = array();
+                    $arrReturnMap = $arrMap;
+                }
     		}
     	}
 
