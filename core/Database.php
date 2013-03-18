@@ -70,7 +70,7 @@ Class Database{
 		//	Free memory
 		$objQuery->free();
 
-		return $result;
+		return $arrResult;
 	}
 
 	/**
